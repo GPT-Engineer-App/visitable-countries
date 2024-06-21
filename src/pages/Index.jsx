@@ -64,7 +64,13 @@ import {
 } from "@/components/ui/tooltip"
 
 const Index = () => {
-  const countries = ["France", "Italy", "Japan", "Australia", "Canada"];
+  const countries = [
+    { name: "France", population: "67 million", capital: "Paris" },
+    { name: "Italy", population: "60 million", capital: "Rome" },
+    { name: "Japan", population: "126 million", capital: "Tokyo" },
+    { name: "Australia", population: "25 million", capital: "Canberra" },
+    { name: "Canada", population: "38 million", capital: "Ottawa" },
+  ];
 
   return (
     <div className="p-4">
@@ -123,16 +129,28 @@ const Index = () => {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <ul>
-                {countries.map((country, index) => (
-                  <li key={index}>{country}</li>
-                ))}
-              </ul>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Country</TableHead>
+                    <TableHead>Population</TableHead>
+                    <TableHead>Capital City</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {countries.map((country, index) => (
+                    <TableRow key={index}>
+                      <TableCell>{country.name}</TableCell>
+                      <TableCell>{country.population}</TableCell>
+                      <TableCell>{country.capital}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
             </CardContent>
             <CardFooter>
               <div className="text-xs text-muted-foreground">
-                Showing <strong>1-10</strong> of <strong>32</strong>{" "}
-                products
+                Showing <strong>1-5</strong> of <strong>5</strong> countries
               </div>
             </CardFooter>
           </Card>
