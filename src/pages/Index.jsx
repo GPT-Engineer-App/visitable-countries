@@ -235,7 +235,7 @@ const Index = () => {
                               </span>
                             </Button>
                           </SheetTrigger>
-                          <SheetContent>
+                          <SheetContent className="overflow-y-auto max-h-[80vh]">
                             <SheetHeader>
                               <SheetTitle>{selectedCountry?.name}</SheetTitle>
                               <SheetDescription>
