@@ -74,12 +74,12 @@ const Index = () => {
     { name: "Canada", population: "38 million", capital: "Ottawa" },
   ]);
 
-  const [newCountry, setNewCountry] = useState({ name: "", population: "", capital: "" });
+  const [newCountry, setNewCountry] = useState({ name: "", population: "", capital: "", area: "", gdp: "", description: "" });
   const [selectedCountry, setSelectedCountry] = useState(null);
 
   const handleAddCountry = () => {
     setCountries([...countries, newCountry]);
-    setNewCountry({ name: "", population: "", capital: "" });
+    setNewCountry({ name: "", population: "", capital: "", area: "", gdp: "", description: "" });
   };
 
   const handleViewDetails = (country) => {
@@ -155,6 +155,21 @@ const Index = () => {
                     value={newCountry.capital}
                     onChange={(e) => setNewCountry({ ...newCountry, capital: e.target.value })}
                   />
+                  <Input
+                    placeholder="Area"
+                    value={newCountry.area}
+                    onChange={(e) => setNewCountry({ ...newCountry, area: e.target.value })}
+                  />
+                  <Input
+                    placeholder="GDP"
+                    value={newCountry.gdp}
+                    onChange={(e) => setNewCountry({ ...newCountry, gdp: e.target.value })}
+                  />
+                  <Input
+                    placeholder="Description"
+                    value={newCountry.description}
+                    onChange={(e) => setNewCountry({ ...newCountry, description: e.target.value })}
+                  />
                   <Button onClick={handleAddCountry}>Add Country</Button>
                 </div>
               </DialogContent>
@@ -202,7 +217,31 @@ const Index = () => {
                                 Population: {selectedCountry?.population}
                               </SheetDescription>
                             </SheetHeader>
-                            <div className="p-4">
+                            <div className="p-4 space-y-4">
+                              <Card>
+                                <CardHeader>
+                                  <CardTitle>Area</CardTitle>
+                                </CardHeader>
+                                <CardContent>
+                                  {selectedCountry?.area}
+                                </CardContent>
+                              </Card>
+                              <Card>
+                                <CardHeader>
+                                  <CardTitle>GDP</CardTitle>
+                                </CardHeader>
+                                <CardContent>
+                                  {selectedCountry?.gdp}
+                                </CardContent>
+                              </Card>
+                              <Card>
+                                <CardHeader>
+                                  <CardTitle>Description</CardTitle>
+                                </CardHeader>
+                                <CardContent>
+                                  {selectedCountry?.description}
+                                </CardContent>
+                              </Card>
                               <Bar
                                 data={{
                                   labels: ["Population"],
