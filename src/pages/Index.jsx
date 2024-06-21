@@ -67,19 +67,19 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
 const Index = () => {
   const [countries, setCountries] = useState([
-    { name: "France", population: "67 million", capital: "Paris" },
-    { name: "Italy", population: "60 million", capital: "Rome" },
-    { name: "Japan", population: "126 million", capital: "Tokyo" },
-    { name: "Australia", population: "25 million", capital: "Canberra" },
-    { name: "Canada", population: "38 million", capital: "Ottawa" },
+    { name: "France", population: "67 million", capital: "Paris", area: "551,695 km²", gdp: "$2.7 trillion", description: "France is known for its cuisine, fashion, and culture.", metrics: { literacyRate: "99%", lifeExpectancy: "82 years", unemploymentRate: "8%" }, trends: { gdpGrowth: "1.5%", populationGrowth: "0.2%" } },
+    { name: "Italy", population: "60 million", capital: "Rome", area: "301,340 km²", gdp: "$2.1 trillion", description: "Italy is famous for its history, art, and cuisine.", metrics: { literacyRate: "99%", lifeExpectancy: "83 years", unemploymentRate: "9%" }, trends: { gdpGrowth: "1.2%", populationGrowth: "0.1%" } },
+    { name: "Japan", population: "126 million", capital: "Tokyo", area: "377,975 km²", gdp: "$5.1 trillion", description: "Japan is known for its technology, culture, and cuisine.", metrics: { literacyRate: "99%", lifeExpectancy: "84 years", unemploymentRate: "2.5%" }, trends: { gdpGrowth: "0.7%", populationGrowth: "-0.2%" } },
+    { name: "Australia", population: "25 million", capital: "Canberra", area: "7,692,024 km²", gdp: "$1.4 trillion", description: "Australia is known for its natural wonders and unique wildlife.", metrics: { literacyRate: "99%", lifeExpectancy: "83 years", unemploymentRate: "5%" }, trends: { gdpGrowth: "2.3%", populationGrowth: "1.3%" } },
+    { name: "Canada", population: "38 million", capital: "Ottawa", area: "9,984,670 km²", gdp: "$1.8 trillion", description: "Canada is known for its natural beauty and multicultural cities.", metrics: { literacyRate: "99%", lifeExpectancy: "82 years", unemploymentRate: "6%" }, trends: { gdpGrowth: "1.8%", populationGrowth: "1.2%" } },
   ]);
 
-  const [newCountry, setNewCountry] = useState({ name: "", population: "", capital: "", area: "", gdp: "", description: "" });
+  const [newCountry, setNewCountry] = useState({ name: "", population: "", capital: "", area: "", gdp: "", description: "", metrics: { literacyRate: "", lifeExpectancy: "", unemploymentRate: "" }, trends: { gdpGrowth: "", populationGrowth: "" } });
   const [selectedCountry, setSelectedCountry] = useState(null);
 
   const handleAddCountry = () => {
     setCountries([...countries, newCountry]);
-    setNewCountry({ name: "", population: "", capital: "", area: "", gdp: "", description: "" });
+    setNewCountry({ name: "", population: "", capital: "", area: "", gdp: "", description: "", metrics: { literacyRate: "", lifeExpectancy: "", unemploymentRate: "" }, trends: { gdpGrowth: "", populationGrowth: "" } });
   };
 
   const handleViewDetails = (country) => {
@@ -170,6 +170,31 @@ const Index = () => {
                     value={newCountry.description}
                     onChange={(e) => setNewCountry({ ...newCountry, description: e.target.value })}
                   />
+                  <Input
+                    placeholder="Literacy Rate"
+                    value={newCountry.metrics.literacyRate}
+                    onChange={(e) => setNewCountry({ ...newCountry, metrics: { ...newCountry.metrics, literacyRate: e.target.value } })}
+                  />
+                  <Input
+                    placeholder="Life Expectancy"
+                    value={newCountry.metrics.lifeExpectancy}
+                    onChange={(e) => setNewCountry({ ...newCountry, metrics: { ...newCountry.metrics, lifeExpectancy: e.target.value } })}
+                  />
+                  <Input
+                    placeholder="Unemployment Rate"
+                    value={newCountry.metrics.unemploymentRate}
+                    onChange={(e) => setNewCountry({ ...newCountry, metrics: { ...newCountry.metrics, unemploymentRate: e.target.value } })}
+                  />
+                  <Input
+                    placeholder="GDP Growth"
+                    value={newCountry.trends.gdpGrowth}
+                    onChange={(e) => setNewCountry({ ...newCountry, trends: { ...newCountry.trends, gdpGrowth: e.target.value } })}
+                  />
+                  <Input
+                    placeholder="Population Growth"
+                    value={newCountry.trends.populationGrowth}
+                    onChange={(e) => setNewCountry({ ...newCountry, trends: { ...newCountry.trends, populationGrowth: e.target.value } })}
+                  />
                   <Button onClick={handleAddCountry}>Add Country</Button>
                 </div>
               </DialogContent>
@@ -240,6 +265,25 @@ const Index = () => {
                                 </CardHeader>
                                 <CardContent>
                                   {selectedCountry?.description}
+                                </CardContent>
+                              </Card>
+                              <Card>
+                                <CardHeader>
+                                  <CardTitle>Metrics</CardTitle>
+                                </CardHeader>
+                                <CardContent>
+                                  <p>Literacy Rate: {selectedCountry?.metrics.literacyRate}</p>
+                                  <p>Life Expectancy: {selectedCountry?.metrics.lifeExpectancy}</p>
+                                  <p>Unemployment Rate: {selectedCountry?.metrics.unemploymentRate}</p>
+                                </CardContent>
+                              </Card>
+                              <Card>
+                                <CardHeader>
+                                  <CardTitle>Trends</CardTitle>
+                                </CardHeader>
+                                <CardContent>
+                                  <p>GDP Growth: {selectedCountry?.trends.gdpGrowth}</p>
+                                  <p>Population Growth: {selectedCountry?.trends.populationGrowth}</p>
                                 </CardContent>
                               </Card>
                               <Bar
