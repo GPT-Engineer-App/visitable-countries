@@ -1,6 +1,3 @@
-import Image from "next/image"
-import Link from "next/link"
-
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -29,12 +26,12 @@ export function Login() {
             <div className="grid gap-2">
               <div className="flex items-center">
                 <Label htmlFor="password">Password</Label>
-                <Link
+                <a
                   href="/forgot-password"
                   className="ml-auto inline-block text-sm underline"
                 >
                   Forgot your password?
-                </Link>
+                </a>
               </div>
               <Input id="password" type="password" required />
             </div>
@@ -47,18 +44,16 @@ export function Login() {
           </div>
           <div className="mt-4 text-center text-sm">
             Don&apos;t have an account?{" "}
-            <Link href="#" className="underline">
+            <a href="#" className="underline">
               Sign up
-            </Link>
+            </a>
           </div>
         </div>
       </div>
       <div className="hidden bg-muted lg:block">
-        <Image
+        <img
           src="/placeholder.svg"
           alt="Image"
-          width="1920"
-          height="1080"
           className="h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
         />
       </div>
