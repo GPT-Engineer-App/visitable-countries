@@ -243,22 +243,26 @@ const Index = () => {
                               </SheetDescription>
                             </SheetHeader>
                             <div className="p-4 space-y-4">
-                              <Card>
-                                <CardHeader>
-                                  <CardTitle>Area</CardTitle>
-                                </CardHeader>
-                                <CardContent>
+                              <Card className="financial-indicator">
+                              <CardHeader>
+                                <CardTitle>Area</CardTitle>
+                              </CardHeader>
+                              <CardContent>
+                                <div className="text-4xl font-bold">
                                   {selectedCountry?.area}
-                                </CardContent>
-                              </Card>
-                              <Card>
-                                <CardHeader>
-                                  <CardTitle>GDP</CardTitle>
-                                </CardHeader>
-                                <CardContent>
+                                </div>
+                              </CardContent>
+                            </Card>
+                            <Card className="financial-indicator">
+                              <CardHeader>
+                                <CardTitle>GDP</CardTitle>
+                              </CardHeader>
+                              <CardContent>
+                                <div className="text-4xl font-bold">
                                   {selectedCountry?.gdp}
-                                </CardContent>
-                              </Card>
+                                </div>
+                              </CardContent>
+                            </Card>
                               <Card>
                                 <CardHeader>
                                   <CardTitle>Description</CardTitle>
