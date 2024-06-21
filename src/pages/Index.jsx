@@ -1,3 +1,6 @@
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetTrigger } from "@/components/ui/sheet";
+import { useState } from "react";
+import { Bar } from "react-chartjs-2";
 import {
   File,
   Home,
@@ -42,7 +45,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import {
   Table,
   TableBody,
@@ -64,22 +66,26 @@ import {
   TooltipProvider,
 } from "@/components/ui/tooltip"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
-import { useState } from "react"
 
 const Index = () => {
-  const countries = [
+  const [countries, setCountries] = useState([
     { name: "France", population: "67 million", capital: "Paris" },
     { name: "Italy", population: "60 million", capital: "Rome" },
     { name: "Japan", population: "126 million", capital: "Tokyo" },
     { name: "Australia", population: "25 million", capital: "Canberra" },
     { name: "Canada", population: "38 million", capital: "Ottawa" },
-  ];
+  ]);
 
   const [newCountry, setNewCountry] = useState({ name: "", population: "", capital: "" });
+  const [selectedCountry, setSelectedCountry] = useState(null);
 
   const handleAddCountry = () => {
-    countries.push(newCountry);
+    setCountries([...countries, newCountry]);
     setNewCountry({ name: "", population: "", capital: "" });
+  };
+
+  const handleViewDetails = (country) => {
+    setSelectedCountry(country);
   };
 
   return (
@@ -182,12 +188,47 @@ const Index = () => {
                       <TableCell>{country.population}</TableCell>
                       <TableCell>{country.capital}</TableCell>
                       <TableCell>
-                        <Button variant="outline" size="sm" className="h-8 gap-1">
-                          <Eye className="h-3.5 w-3.5" />
-                          <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-                            View Details
-                          </span>
-                        </Button>
+                        <Sheet>
+                          <SheetTrigger asChild>
+                            <Button variant="outline" size="sm" className="h-8 gap-1" onClick={() => handleViewDetails(country)}>
+                              <Eye className="h-3.5 w-3.5" />
+                              <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
+                                View Details
+                              </span>
+                            </Button>
+                          </SheetTrigger>
+                          <SheetContent>
+                            <SheetHeader>
+                              <SheetTitle>{selectedCountry?.name}</SheetTitle>
+                              <SheetDescription>
+                                Population: {selectedCountry?.population}
+                              </SheetDescription>
+                            </SheetHeader>
+                            <div className="p-4">
+                              <Bar
+                                data={{
+                                  labels: ["Population"],
+                                  datasets: [
+                                    {
+                                      label: selectedCountry?.name,
+                                      data: [parseInt(selectedCountry?.population.replace(/[^0-9]/g, ''))],
+                                      backgroundColor: "rgba(75, 192, 192, 0.2)",
+                                      borderColor: "rgba(75, 192, 192, 1)",
+                                      borderWidth: 1,
+                                    },
+                                  ],
+                                }}
+                                options={{
+                                  scales: {
+                                    y: {
+                                      beginAtZero: true,
+                                    },
+                                  },
+                                }}
+                              />
+                            </div>
+                          </SheetContent>
+                        </Sheet>
                       </TableCell>
                     </TableRow>
                   ))}
