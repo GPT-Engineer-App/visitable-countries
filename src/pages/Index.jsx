@@ -12,6 +12,7 @@ import {
   Settings,
   ShoppingCart,
   Users2,
+  Eye,
 } from "lucide-react"
 
 import { Badge } from "@/components/ui/badge"
@@ -62,6 +63,8 @@ import {
   TooltipTrigger,
   TooltipProvider,
 } from "@/components/ui/tooltip"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { useState } from "react"
 
 const Index = () => {
   const countries = [
@@ -71,6 +74,13 @@ const Index = () => {
     { name: "Australia", population: "25 million", capital: "Canberra" },
     { name: "Canada", population: "38 million", capital: "Ottawa" },
   ];
+
+  const [newCountry, setNewCountry] = useState({ name: "", population: "", capital: "" });
+
+  const handleAddCountry = () => {
+    countries.push(newCountry);
+    setNewCountry({ name: "", population: "", capital: "" });
+  };
 
   return (
     <div className="p-4">
@@ -112,20 +122,47 @@ const Index = () => {
                 Export
               </span>
             </Button>
-            <Button size="sm" className="h-8 gap-1">
-              <PlusCircle className="h-3.5 w-3.5" />
-              <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-                Add Product
-              </span>
-            </Button>
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button size="sm" className="h-8 gap-1">
+                  <PlusCircle className="h-3.5 w-3.5" />
+                  <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
+                    Add Country
+                  </span>
+                </Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Add a new country</DialogTitle>
+                </DialogHeader>
+                <div className="space-y-4">
+                  <Input
+                    placeholder="Country Name"
+                    value={newCountry.name}
+                    onChange={(e) => setNewCountry({ ...newCountry, name: e.target.value })}
+                  />
+                  <Input
+                    placeholder="Population"
+                    value={newCountry.population}
+                    onChange={(e) => setNewCountry({ ...newCountry, population: e.target.value })}
+                  />
+                  <Input
+                    placeholder="Capital City"
+                    value={newCountry.capital}
+                    onChange={(e) => setNewCountry({ ...newCountry, capital: e.target.value })}
+                  />
+                  <Button onClick={handleAddCountry}>Add Country</Button>
+                </div>
+              </DialogContent>
+            </Dialog>
           </div>
         </div>
         <TabsContent value="all">
           <Card x-chunk="dashboard-06-chunk-0">
             <CardHeader>
-              <CardTitle>Products</CardTitle>
+              <CardTitle>Countries</CardTitle>
               <CardDescription>
-                Manage your products and view their sales performance.
+                Manage your countries and view their details.
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -135,6 +172,7 @@ const Index = () => {
                     <TableHead>Country</TableHead>
                     <TableHead>Population</TableHead>
                     <TableHead>Capital City</TableHead>
+                    <TableHead>Actions</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -143,6 +181,14 @@ const Index = () => {
                       <TableCell>{country.name}</TableCell>
                       <TableCell>{country.population}</TableCell>
                       <TableCell>{country.capital}</TableCell>
+                      <TableCell>
+                        <Button variant="outline" size="sm" className="h-8 gap-1">
+                          <Eye className="h-3.5 w-3.5" />
+                          <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
+                            View Details
+                          </span>
+                        </Button>
+                      </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
